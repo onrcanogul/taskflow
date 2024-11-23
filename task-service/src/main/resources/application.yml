@@ -1,1 +1,15 @@
-spring.application.name=task-service
+server:
+  port: 8080
+
+spring:
+  application:
+    name: "task-service"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/TaskDb
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+  sql:
+    init:
+      mode: always

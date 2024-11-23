@@ -28,5 +28,4 @@ public class BaseEntity {
     @Column(insertable = false, name = "updated_by")
     @LastModifiedBy
     private String updatedBy;
-
 }

@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> implements BaseService<T, D> {
     private BaseRepository<T> repository;
 
-    public List<D> get(int page, int size, Optional<Predicate<? super T>> predicate) {
+    public List<D> get(int page , int size, Optional<Predicate<? super T>> predicate) {
         @SuppressWarnings("unchecked")
         Stream<T> entityStream = (Stream<T>) repository.findAll().stream();
         if(page != 0 && size != 0) {

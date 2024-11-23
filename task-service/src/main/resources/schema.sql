@@ -1,0 +1,29 @@
+CREATE TABLE IF NOT EXISTS tags (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created_by VARCHAR(255),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_by VARCHAR(255)
+    );
+
+-- Task tablosu
+CREATE TABLE IF NOT EXISTS tasks (
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    user_id VARCHAR(255),
+    target_date TIMESTAMP,
+    points INT,
+    status VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created_by VARCHAR(255),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_by VARCHAR(255)
+    );
+
+CREATE TABLE IF NOT EXISTS tasks_tags (
+    task_id BIGINT NOT NULL REFERENCES task(id) ON DELETE CASCADE,
+    tag_id BIGINT NOT NULL REFERENCES tag(id) ON DELETE CASCADE,
+    PRIMARY KEY (task_id, tag_id)
+    );
