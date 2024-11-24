@@ -15,8 +15,6 @@ import java.util.List;
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
 public class Task extends BaseEntity {
-    @Id
-    private String id;
     private String title;
     private String description;
     private String userId;
