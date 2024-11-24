@@ -7,13 +7,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="shared" />
-        <module name="user" />
+        <module name="notification" />
         <module name="task-service" />
+        <module name="user" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="notification" options="-parameters" />
       <module name="shared" options="-parameters" />
       <module name="task-service" options="-parameters" />
       <module name="user" options="-parameters" />
