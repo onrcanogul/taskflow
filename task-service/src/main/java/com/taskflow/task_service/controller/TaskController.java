@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/task")
@@ -20,7 +21,7 @@ public class TaskController {
     }
 
     @GetMapping("/{taskId}")
-    public ResponseEntity<TaskDto> get(@PathVariable long id) {
+    public ResponseEntity<TaskDto> get(@PathVariable UUID id) {
         return ResponseEntity.ok(service.getSingle(e -> e.getId() == id));
     }
 
