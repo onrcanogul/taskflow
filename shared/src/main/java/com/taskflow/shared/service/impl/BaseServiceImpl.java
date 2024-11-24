@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -50,7 +51,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> i
         return dto;
     }
 
-    public void delete(long id) {
+    public void delete(UUID id) {
         @SuppressWarnings("unchecked")
         T entity = (T)repository.findById(id).orElseThrow(RuntimeException::new);
         repository.delete(entity);

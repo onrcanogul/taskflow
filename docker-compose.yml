@@ -1,0 +1,21 @@
+services:
+  taskDb:
+    image: postgres
+    container_name: task-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: task-db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - task-flow-network
+
+networks:
+  task-flow-network:
+    driver: "bridge"

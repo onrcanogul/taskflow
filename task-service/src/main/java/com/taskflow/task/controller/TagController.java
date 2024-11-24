@@ -35,8 +35,8 @@ public class TagController {
         return ResponseEntity.status(200).body(service.update(dto));
     }
 
-    @DeleteMapping("/{tagId}")
-    public ResponseEntity<Void> delete(@PathVariable long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.status(204).build();
     }

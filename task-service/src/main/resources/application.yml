@@ -5,9 +5,9 @@ spring:
   application:
     name: "task-service"
   datasource:
-    url: jdbc:postgresql://localhost:5432/TaskDb
+    url: jdbc:postgresql://localhost:5432/task-db
     username: postgres
-    password: postgres
+    password: password
   jpa:
     show-sql: true
   sql:

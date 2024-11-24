@@ -2,10 +2,10 @@ package com.taskflow.shared.repository;
 
 import com.taskflow.shared.entity.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
-@NoRepositoryBean
+@Repository
 public interface BaseRepository<D extends BaseEntity> extends JpaRepository<D, UUID> {
 }
