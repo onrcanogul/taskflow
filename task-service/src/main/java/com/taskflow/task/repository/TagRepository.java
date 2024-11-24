@@ -1,7 +1,7 @@
-package com.taskflow.task_service.repository;
+package com.taskflow.task.repository;
 
 import com.taskflow.shared.repository.BaseRepository;
-import com.taskflow.task_service.entity.Tag;
+import com.taskflow.task.entity.Tag;
 import org.springframework.stereotype.Repository;
 
 @Repository

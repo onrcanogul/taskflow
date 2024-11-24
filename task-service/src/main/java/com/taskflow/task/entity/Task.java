@@ -1,10 +1,9 @@
-package com.taskflow.task_service.entity;
+package com.taskflow.task.entity;
 
 
 import com.taskflow.shared.entity.BaseEntity;
-import com.taskflow.task_service.enums.TaskStatus;
+import com.taskflow.task.enums.TaskStatus;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import lombok.*;
 

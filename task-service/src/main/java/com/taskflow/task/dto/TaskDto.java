@@ -1,8 +1,7 @@
-package com.taskflow.task_service.dto;
+package com.taskflow.task.dto;
 
 import com.taskflow.shared.dto.BaseDto;
-import com.taskflow.task_service.entity.Tag;
-import com.taskflow.task_service.enums.TaskStatus;
+import com.taskflow.task.enums.TaskStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;

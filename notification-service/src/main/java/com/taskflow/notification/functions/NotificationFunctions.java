@@ -10,12 +10,11 @@ import java.util.function.Consumer;
 
 @Configuration
 public class NotificationFunctions {
-
     @Autowired
     private EmailNotificationService emailService;
 
     @Bean
-    public Consumer<NotificationDto> sendConsumer() {
+    public Consumer<NotificationDto> sendEmail() {
         return notification -> {
             emailService.send(notification.getTo(), notification.getSubject(), notification.getContent());
         };

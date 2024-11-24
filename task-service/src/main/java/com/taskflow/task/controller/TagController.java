@@ -1,7 +1,7 @@
-package com.taskflow.task_service.controller;
+package com.taskflow.task.controller;
 
-import com.taskflow.task_service.dto.TagDto;
-import com.taskflow.task_service.service.TagService;
+import com.taskflow.task.dto.TagDto;
+import com.taskflow.task.service.TagService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

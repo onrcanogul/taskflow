@@ -1,4 +1,4 @@
-package com.taskflow.task_service.entity;
+package com.taskflow.task.entity;
 
 import com.taskflow.shared.entity.BaseEntity;
 import jakarta.persistence.Entity;

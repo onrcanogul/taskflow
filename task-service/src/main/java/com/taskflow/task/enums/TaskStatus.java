@@ -1,4 +1,4 @@
-package com.taskflow.task_service.enums;
+package com.taskflow.task.enums;
 
 
 public enum TaskStatus {

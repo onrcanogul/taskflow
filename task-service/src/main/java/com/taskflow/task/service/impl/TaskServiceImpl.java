@@ -1,10 +1,10 @@
-package com.taskflow.task_service.service.impl;
+package com.taskflow.task.service.impl;
 
 import com.taskflow.shared.repository.BaseRepository;
 import com.taskflow.shared.service.impl.BaseServiceImpl;
-import com.taskflow.task_service.dto.TaskDto;
-import com.taskflow.task_service.entity.Task;
-import com.taskflow.task_service.service.TaskService;
+import com.taskflow.task.dto.TaskDto;
+import com.taskflow.task.entity.Task;
+import com.taskflow.task.service.TaskService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
