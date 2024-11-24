@@ -1,7 +1,6 @@
 package com.taskfow.user.controller;
 
 import com.taskfow.user.dto.UserDto;
-import com.taskfow.user.entity.User;
 import com.taskfow.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

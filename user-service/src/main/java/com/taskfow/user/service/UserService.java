@@ -11,5 +11,4 @@ public interface UserService extends BaseService<User, UserDto> {
     UserDto getById(UUID id);
     UserDto getByName(String username);
     UserDto getByEmail(String email);
-
 }
