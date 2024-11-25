@@ -1,0 +1,15 @@
+server:
+  port: 9020
+
+spring:
+  application:
+    name: "report-service"
+  datasource:
+    url: jdbc:postgresql://localhost:5434/report-db
+    username: postgres
+    password: password
+  jpa:
+    show-sql: true
+  sql:
+    init:
+      mode: always

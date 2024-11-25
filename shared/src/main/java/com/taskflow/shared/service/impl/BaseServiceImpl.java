@@ -20,7 +20,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> i
 
     public List<D> get(int page , int size, Optional<Predicate<? super T>> predicate) {
         @SuppressWarnings("unchecked")
-        Stream<T> entityStream = (Stream<T>) repository.findAll().stream();
+        Stream<T> entityStream = repository.findAll().stream();
         if(page != 0 && size != 0) {
             entityStream.skip((long) page * size).limit(size);
         }
@@ -30,9 +30,8 @@ public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> i
         return entityStream.map(this::mapToDto).toList();
     }
 
-    public D getSingle(Predicate<? super BaseEntity> predicate) {
-        @SuppressWarnings("unchecked")
-        T entity = (T)repository.findAll().stream().filter(predicate)
+    public D getSingle(Predicate<T> predicate) {
+        T entity = repository.findAll().stream().filter(predicate)
                 .findFirst().orElseThrow(RuntimeException::new);
         return mapToDto(entity);
     }
@@ -44,16 +43,14 @@ public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> i
     }
 
     public D update(D dto) {
-        @SuppressWarnings("unchecked")
-        T entity = (T)repository.findById(dto.getId()).orElseThrow(RuntimeException::new);
+        T entity = repository.findById(dto.getId()).orElseThrow(RuntimeException::new);
         updateEntity(dto, entity);
         repository.save(entity);
         return dto;
     }
 
     public void delete(UUID id) {
-        @SuppressWarnings("unchecked")
-        T entity = (T)repository.findById(id).orElseThrow(RuntimeException::new);
+        T entity = repository.findById(id).orElseThrow(RuntimeException::new);
         repository.delete(entity);
     }
 

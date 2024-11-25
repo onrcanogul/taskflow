@@ -13,3 +13,12 @@ spring:
           auth: true
           starttls:
             enable: true
+  datasource:
+    url: jdbc:postgresql://localhost:5435/notification-db
+    username: postgres
+    password: password
+  jpa:
+    show-sql: true
+  sql:
+    init:
+      mode: always
