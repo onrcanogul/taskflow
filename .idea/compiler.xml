@@ -11,12 +11,14 @@
         <module name="shared" />
         <module name="notification" />
         <module name="task-service" />
+        <module name="config-service" />
         <module name="user" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="config-service" options="-parameters" />
       <module name="notification" options="-parameters" />
       <module name="report" options="-parameters" />
       <module name="shared" options="-parameters" />
