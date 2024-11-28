@@ -78,7 +78,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>onrcanogul/${project.artifactId}</image>
+						<image>taskflow/${project.artifactId}</image>
 					</to>
 				</configuration>
 			</plugin>

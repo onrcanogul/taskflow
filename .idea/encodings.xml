@@ -2,9 +2,12 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/config-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/notification-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/report-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shared/base/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/shared/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shared/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/task-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/task/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user-service/src/main/java" charset="UTF-8" />

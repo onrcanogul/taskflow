@@ -32,7 +32,7 @@ public class TaskController {
 
     @PutMapping
     public ResponseEntity<TaskDto> update(@RequestBody TaskDto dto) {
-        return ResponseEntity.status(200).body(service.update(dto));
+        return ResponseEntity.status(200).body(service.update(dto, dto.getId()));
     }
 
     @DeleteMapping("/{id}")

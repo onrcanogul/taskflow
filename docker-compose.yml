@@ -1,4 +1,17 @@
 services:
+  config-service:
+    image: "taskflow/config-service"
+    container_name: config-service
+    ports:
+      - "8071:8071"
+    healthcheck:
+      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - task-flow-network
   taskDb:
     image: postgres
     container_name: task-db
@@ -63,6 +76,131 @@ services:
       retries: 3
     networks:
       - task-flow-network
+  eureka-service:
+    image: "taskflow/eureka-service"
+    container_name: eureka-service
+    ports:
+      - "8070:8070"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      taskDb:
+        condition: service_healthy
+      config-service:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATON_NAME: "eureka-service"
+      SPRING_CONFIG_IMPORT: config-service:http://configserver:8071/
+    networks:
+      - task-flow-network
+
+  task-service:
+    image: "taskflow/task-service"
+    container_name: task-service
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    depends_on:
+       config-service:
+          condition: service_healthy
+       taskDb:
+           condition: service_healthy
+    environment:
+        SPRING_APPLICATION_NAME: "task-service"
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+        SPRING_CONFIG_IMPORT: config-service:http://configserver:8071/
+        SPRING_DATASOURCE_URL: "jdbc:postgresql://localhost:5432/task-db"
+        SPRING_DATASOURCE_USERNAME: postgres
+        SPRING_DATASOURCE_PASSWORD: password
+    networks:
+      - task-flow-network
+
+  user-service:
+    image: "taskflow/user-service"
+    container_name: user-service
+    ports:
+      - "9020:9020"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      config-service:
+        condition: service_healthy
+      userDb:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "user-service"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+      SPRING_CONFIG_IMPORT: config-service:http://configserver:8071/
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://localhost:5433/user-db"
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+    networks:
+      - task-flow-network
+
+  report-service:
+    image: "taskflow/report-service"
+    container_name: report-service
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      config-service:
+        condition: service_healthy
+      reportDb:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "report-service"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+      SPRING_CONFIG_IMPORT: config-service:http://configserver:8071/
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://localhost:5434/report-db"
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+    networks:
+      - task-flow-network
+  notification-service:
+    image: "taskflow/notification-service"
+    container_name: notification-service
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      config-service:
+        condition: service_healthy
+      notificationDb:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "notification-service"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+      SPRING_CONFIG_IMPORT: config-service:http://configserver:8071/
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://localhost:5435/notification-db"
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+    networks:
+      - task-flow-network
+
 
 networks:
   task-flow-network:

@@ -34,6 +34,6 @@ public class UserController {
     }
     @PutMapping
     public ResponseEntity<UserDto> update(@RequestBody UserDto dto) {
-        return ResponseEntity.status(200).body(service.update(dto));
+        return ResponseEntity.status(200).body(service.update(dto, dto.getId()));
     }
 }

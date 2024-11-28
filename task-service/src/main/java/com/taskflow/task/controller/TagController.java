@@ -32,7 +32,7 @@ public class TagController {
 
     @PutMapping
     public ResponseEntity<TagDto> update(@RequestBody TagDto dto) {
-        return ResponseEntity.status(200).body(service.update(dto));
+        return ResponseEntity.status(200).body(service.update(dto, dto.getId()));
     }
 
     @DeleteMapping("/{id}")
