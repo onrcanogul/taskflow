@@ -1,7 +1,7 @@
 package com.taskflow.task.service.impl;
 
-import com.taskflow.shared.repository.BaseRepository;
-import com.taskflow.shared.service.impl.BaseServiceImpl;
+import com.taskflow.base.repository.BaseRepository;
+import com.taskflow.base.service.impl.BaseServiceImpl;
 import com.taskflow.task.dto.TaskDto;
 import com.taskflow.task.entity.Task;
 import com.taskflow.task.service.TaskService;

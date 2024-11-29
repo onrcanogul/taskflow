@@ -19,13 +19,13 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="base" options="-parameters" />
+      <module name="base" options="" />
       <module name="config-service" options="-parameters" />
       <module name="eureka-service" options="-parameters" />
-      <module name="notification" options="-parameters" />
+      <module name="notification" options="" />
       <module name="report" options="-parameters" />
       <module name="shared" options="" />
-      <module name="task-service" options="-parameters" />
+      <module name="task-service" options="" />
       <module name="user" options="-parameters" />
     </option>
   </component>

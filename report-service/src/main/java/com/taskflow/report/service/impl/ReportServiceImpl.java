@@ -3,8 +3,8 @@ package com.taskflow.report.service.impl;
 import com.taskflow.report.dto.ReportDto;
 import com.taskflow.report.entity.Report;
 import com.taskflow.report.service.ReportService;
-import com.taskflow.shared.repository.BaseRepository;
-import com.taskflow.shared.service.impl.BaseServiceImpl;
+import com.taskflow.base.repository.BaseRepository;
+import com.taskflow.base.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service

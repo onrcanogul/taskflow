@@ -1,7 +1,7 @@
-package com.taskfow.user.controller;
+package com.taskflow.user.controller;
 
-import com.taskfow.user.dto.UserDto;
-import com.taskfow.user.service.UserService;
+import com.taskflow.user.dto.UserDto;
+import com.taskflow.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

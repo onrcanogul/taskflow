@@ -1,6 +1,6 @@
 package com.taskflow.task.dto;
 
-import com.taskflow.shared.dto.BaseDto;
+import com.taskflow.base.dto.BaseDto;
 import com.taskflow.task.enums.TaskStatus;
 import lombok.Data;
 

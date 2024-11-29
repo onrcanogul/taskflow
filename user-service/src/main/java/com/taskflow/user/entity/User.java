@@ -1,6 +1,6 @@
-package com.taskfow.user.entity;
+package com.taskflow.user.entity;
 
-import com.taskflow.shared.entity.BaseEntity;
+import com.taskflow.base.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import lombok.*;
 

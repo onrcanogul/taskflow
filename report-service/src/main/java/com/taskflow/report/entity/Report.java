@@ -1,7 +1,7 @@
 package com.taskflow.report.entity;
 
 import com.taskflow.report.enums.ReportType;
-import com.taskflow.shared.entity.BaseEntity;
+import com.taskflow.base.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import lombok.*;
 

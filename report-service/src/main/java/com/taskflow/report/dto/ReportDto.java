@@ -1,7 +1,7 @@
 package com.taskflow.report.dto;
 
 import com.taskflow.report.enums.ReportType;
-import com.taskflow.shared.dto.BaseDto;
+import com.taskflow.base.dto.BaseDto;
 import lombok.Data;
 
 import java.util.UUID;

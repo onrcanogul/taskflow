@@ -1,4 +1,4 @@
-package com.taskfow.user;
+package com.taskflow.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

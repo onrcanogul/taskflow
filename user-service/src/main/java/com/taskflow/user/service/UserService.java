@@ -1,8 +1,8 @@
-package com.taskfow.user.service;
+package com.taskflow.user.service;
 
-import com.taskflow.shared.service.BaseService;
-import com.taskfow.user.dto.UserDto;
-import com.taskfow.user.entity.User;
+import com.taskflow.base.service.BaseService;
+import com.taskflow.user.dto.UserDto;
+import com.taskflow.user.entity.User;
 
 import java.util.UUID;
 

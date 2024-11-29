@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.taskflow</groupId>
+		<artifactId>shared</artifactId>
+		<relativePath>../shared/pom.xml</relativePath>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.taskflow</groupId>
 	<artifactId>task-service</artifactId>
@@ -26,57 +26,87 @@
 		<tag/>
 		<url/>
 	</scm>
+
+	<!-- Properties -->
 	<properties>
 		<maven.compiler.proc>full</maven.compiler.proc>
 		<java.version>21</java.version>
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
 	</properties>
+
+	<!-- Dependencies -->
 	<dependencies>
+		<!-- TaskFlow Base Module -->
 		<dependency>
 			<groupId>com.taskflow</groupId>
-			<artifactId>shared</artifactId>
+			<artifactId>base</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+		<!-- Spring Boot Starter Data JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>3.4.0</version>
 		</dependency>
+
+		<!-- Spring Boot Starter Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>3.4.0</version>
 		</dependency>
 
+		<!-- Spring Boot DevTools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
+			<version>3.4.0</version>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- PostgreSQL JDBC Driver -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
+			<version>42.6.0</version>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.34</version>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Spring Boot Starter Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>3.4.0</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
+
+		<!-- Spring Cloud Starter Config -->
+
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-config</artifactId>
+			</dependency>
+
+
+		<!-- Spring Boot Actuator -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>3.4.0</version>
 		</dependency>
 	</dependencies>
 
+	<!-- Dependency Management -->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -89,8 +119,10 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<!-- Build Plugins -->
 	<build>
 		<plugins>
+			<!-- Spring Boot Maven Plugin -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -103,6 +135,8 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<!-- Jib Plugin for Containerization -->
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>jib-maven-plugin</artifactId>
@@ -115,5 +149,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

@@ -1,7 +1,7 @@
-package com.taskfow.user.repository;
+package com.taskflow.user.repository;
 
-import com.taskflow.shared.repository.BaseRepository;
-import com.taskfow.user.entity.User;
+import com.taskflow.base.repository.BaseRepository;
+import com.taskflow.user.entity.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

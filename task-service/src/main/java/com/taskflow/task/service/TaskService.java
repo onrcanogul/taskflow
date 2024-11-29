@@ -1,6 +1,6 @@
 package com.taskflow.task.service;
 
-import com.taskflow.shared.service.BaseService;
+import com.taskflow.base.service.BaseService;
 import com.taskflow.task.dto.TaskDto;
 import com.taskflow.task.entity.Task;
 
