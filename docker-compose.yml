@@ -11,7 +11,7 @@ services:
       - task-flow-network
 
   api-gateway:
-    image: "taskflow/apigateway"
+    image: "taskflow/api-gateway"
     container_name: "api-gateway"
     ports:
       - "8072:8072"
@@ -42,7 +42,7 @@ services:
       - task-flow-network
 
   config-service:
-    image: "taskflow/config-service"
+    image: "taskflow/configservice"
     container_name: config-service
     ports:
       - "8071:8071"
@@ -167,7 +167,7 @@ services:
       - task-flow-network
 
   user-service:
-    image: "taskflow/user-service"
+    image: "taskflow/user"
     container_name: user-service
     ports:
       - "9020:9020"
@@ -193,7 +193,7 @@ services:
       - task-flow-network
 
   report-service:
-    image: "taskflow/report-service"
+    image: "taskflow/report"
     container_name: report-service
     ports:
       - "8080:8080"
@@ -218,7 +218,7 @@ services:
     networks:
       - task-flow-network
   notification-service:
-    image: "taskflow/notification-service"
+    image: "taskflow/notification"
     container_name: notification-service
     ports:
       - "8080:8080"

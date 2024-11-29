@@ -11,6 +11,7 @@
         <module name="notification" />
         <module name="config-service" />
         <module name="report" />
+        <module name="api-gateway" />
         <module name="task-service" />
         <module name="user" />
         <module name="base" />
@@ -19,14 +20,15 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway" options="" />
       <module name="base" options="" />
-      <module name="config-service" options="-parameters" />
-      <module name="eureka-service" options="-parameters" />
+      <module name="config-service" options="" />
+      <module name="eureka-service" options="" />
       <module name="notification" options="" />
-      <module name="report" options="-parameters" />
+      <module name="report" options="" />
       <module name="shared" options="" />
       <module name="task-service" options="" />
-      <module name="user" options="-parameters" />
+      <module name="user" options="" />
     </option>
   </component>
 </project>

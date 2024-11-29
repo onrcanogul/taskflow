@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -27,7 +28,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> i
         if(predicate.isPresent()) {
             entityStream.filter(predicate.get());
         }
-        return entityStream.map(this::mapToDto).toList();
+        return entityStream.map(this::mapToDto).collect(Collectors.toList());
     }
 
     public D getSingle(Predicate<T> predicate) {

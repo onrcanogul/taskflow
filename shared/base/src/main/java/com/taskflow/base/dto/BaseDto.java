@@ -1,14 +1,10 @@
 package com.taskflow.base.dto;
 
-import jakarta.persistence.MappedSuperclass;
-import lombok.*;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 
-@MappedSuperclass
 public class BaseDto implements Serializable {
     private UUID id;
     private LocalDateTime createdAt;
