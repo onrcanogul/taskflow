@@ -1,6 +1,5 @@
 package com.taskflow.report.entity;
 
-import com.taskflow.report.enums.ReportType;
 import com.taskflow.base.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import lombok.*;
@@ -16,5 +15,4 @@ public class Report extends BaseEntity {
     private int activeTasks;
     private int level;
     private int points;
-    private ReportType reportType;
 }

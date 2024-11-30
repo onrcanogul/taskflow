@@ -22,3 +22,11 @@ spring:
   sql:
     init:
       mode: always
+
+feign:
+  client:
+    config:
+      users:
+        connect-timeout: 3000
+        read-timeout: 3000
+        logger-level: DEBUG

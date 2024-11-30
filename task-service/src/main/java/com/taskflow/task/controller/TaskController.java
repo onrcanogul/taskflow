@@ -25,6 +25,11 @@ public class TaskController {
         return ResponseEntity.ok(service.getSingle(e -> e.getId() == id));
     }
 
+    @GetMapping("/completed/{userId}")
+    public ResponseEntity<List<TaskDto>> getCompleted(@PathVariable UUID userId) {
+        return ResponseEntity.ok(service.getCompletedTasks(userId));
+    }
+
     @PostMapping
     public ResponseEntity<TaskDto> create(@RequestBody TaskDto dto) {
         return ResponseEntity.status(201).body(service.create(dto));

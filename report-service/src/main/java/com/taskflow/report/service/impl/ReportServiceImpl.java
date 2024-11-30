@@ -17,7 +17,6 @@ public class ReportServiceImpl extends BaseServiceImpl<Report, ReportDto> implem
     protected void updateEntity(ReportDto dto, Report entity) {
         entity.setActiveTasks(dto.getActiveTasks());
         entity.setLevel(dto.getLevel());
-        entity.setReportType(dto.getReportType());
         entity.setCompletedTasks(dto.getCompletedTasks());
         entity.setUserId(dto.getUserId());
         entity.setPoints(dto.getPoints());
@@ -30,7 +29,6 @@ public class ReportServiceImpl extends BaseServiceImpl<Report, ReportDto> implem
         dto.setActiveTasks(entity.getActiveTasks());
         dto.setLevel(entity.getLevel());
         dto.setPoints(entity.getPoints());
-        dto.setReportType(entity.getReportType());
         dto.setCompletedTasks(entity.getCompletedTasks());
         dto.setUserId(entity.getUserId());
         dto.setCreatedAt(entity.getCreatedDate());
@@ -47,7 +45,6 @@ public class ReportServiceImpl extends BaseServiceImpl<Report, ReportDto> implem
         entity.setActiveTasks(dto.getActiveTasks());
         entity.setLevel(dto.getLevel());
         entity.setPoints(dto.getPoints());
-        entity.setReportType(dto.getReportType());
         entity.setCompletedTasks(dto.getCompletedTasks());
         entity.setUserId(dto.getUserId());
         entity.setCreatedDate(dto.getCreatedAt());

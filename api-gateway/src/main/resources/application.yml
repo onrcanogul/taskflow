@@ -18,6 +18,13 @@ spring:
       host: localhost
       port: 6379
       timeout: 1s
+feign:
+  client:
+    config:
+      users:
+        connect-timeout: 3000
+        read-timeout: 3000
+        logger-level: DEBUG
 
 
 management:

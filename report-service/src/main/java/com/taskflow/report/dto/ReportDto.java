@@ -1,6 +1,5 @@
 package com.taskflow.report.dto;
 
-import com.taskflow.report.enums.ReportType;
 import com.taskflow.base.dto.BaseDto;
 import lombok.Data;
 
@@ -13,5 +12,4 @@ public class ReportDto extends BaseDto {
     private int activeTasks;
     private int level;
     private int points;
-    private ReportType reportType;
 }

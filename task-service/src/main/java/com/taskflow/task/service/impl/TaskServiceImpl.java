@@ -1,6 +1,9 @@
 package com.taskflow.task.service.impl;
 
+import com.taskflow.base.enums.TaskStatus;
+import com.taskflow.base.events.TaskCreateReportEvent;
 import com.taskflow.base.events.TaskSendNotificationEvent;
+import com.taskflow.base.events.base.IEvent;
 import com.taskflow.base.service.impl.BaseServiceImpl;
 import com.taskflow.task.dto.TaskDto;
 import com.taskflow.task.entity.Tag;
@@ -12,14 +15,15 @@ import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 
 @Service
 public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements TaskService {
-    private TaskRepository repository;
+    private final TaskRepository repository;
     private final StreamBridge streamBridge;
-    private TagRepository tagRepository;
+    private final TagRepository tagRepository;
     public TaskServiceImpl(TaskRepository repository, StreamBridge streamBridge, TagRepository tagRepository) {
         super(repository);
         this.repository = repository;
@@ -27,10 +31,15 @@ public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements T
         this.tagRepository = tagRepository;
     }
 
+    public List<TaskDto> getCompletedTasks(UUID userId) {
+        return repository.findByUserIdAndStatus(userId, TaskStatus.Done).stream().map(this::mapToDto).toList();
+    }
+
     public TaskDto create(TaskDto dto) {
         Task task = mapToEntity(dto);
         TaskDto newTask = mapToDto(repository.save(task));
-        sendCommunication(newTask, createMessage(newTask));
+        sendCommunication(new TaskSendNotificationEvent(dto.getUserId(), dto.getTitle(), dto.getTargetDate(), createMessage(newTask)),"taskSendNotification-out-0");
+        sendCommunication(new TaskCreateReportEvent(dto.getUserId(), dto.getPoints()), "taskCreateReport-out-0");
         return newTask;
     }
 
@@ -45,7 +54,7 @@ public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements T
         Task task = repository.findById(dto.getId()).orElseThrow(NullPointerException::new);
         updateEntity(dto, task);
         TaskDto newTask = mapToDto(repository.save(task));
-        sendCommunication(newTask, updateMessage(newTask));
+        sendCommunication(new TaskSendNotificationEvent(dto.getUserId(), dto.getTitle(), dto.getTargetDate(), updateMessage(newTask)),"taskSendNotification-out-0");
         return newTask;
     }
 
@@ -53,17 +62,12 @@ public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements T
         Task task = repository.findById(id).orElseThrow(NullPointerException::new);
         repository.delete(task);
         TaskDto dto = mapToDto(task);
-        sendCommunication(dto, deleteMessage(dto));
+        sendCommunication(new TaskSendNotificationEvent(dto.getUserId(), dto.getTitle(), dto.getTargetDate(), deleteMessage(dto)),"taskSendNotification-out-0");
     }
 
 
-    private void sendCommunication(TaskDto task, String message) {
-        TaskSendNotificationEvent event = new TaskSendNotificationEvent();
-        event.setUserId(task.getUserId());
-        event.setTitle(task.getTitle());
-        event.setTargetDate(task.getTargetDate());
-        event.setMessage(message);
-        streamBridge.send("taskSendNotification-out-0", event);
+    private void sendCommunication(IEvent event, String bindName) {
+        streamBridge.send(bindName, event);
     }
 
     private String createMessage(TaskDto task) {

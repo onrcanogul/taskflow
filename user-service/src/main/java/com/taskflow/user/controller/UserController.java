@@ -16,16 +16,16 @@ import java.util.UUID;
 public class UserController {
     private UserService service;
 
-    @GetMapping("/id/{id}")
-    public ResponseEntity<UserDto> getById(UUID id){
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getById(@PathVariable(name = "id") UUID id) {
         return ResponseEntity.status(200).body(service.getById(id));
     }
     @GetMapping("/username/{name}")
-    public ResponseEntity<UserDto> getByUsername(String username){
-        return ResponseEntity.status(200).body(service.getByName(username));
+    public ResponseEntity<UserDto> getByUsername(@PathVariable(name = "name") String name){
+        return ResponseEntity.status(200).body(service.getByName(name));
     }
     @GetMapping("/email/{email}")
-    public ResponseEntity<UserDto> getById(String email){
+    public ResponseEntity<UserDto> getById(@PathVariable(name = "email") String email){
         return ResponseEntity.status(200).body(service.getByEmail(email));
     }
     @GetMapping("/me")

@@ -1,6 +1,4 @@
-package com.taskflow.task.enums;
-
-
+package com.taskflow.base.enums;
 public enum TaskStatus {
     Todo,
     InProgress,
