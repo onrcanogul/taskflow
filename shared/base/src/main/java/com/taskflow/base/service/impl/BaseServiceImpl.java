@@ -22,11 +22,11 @@ public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> i
 
     public List<D> get(int page , int size, Optional<Predicate<? super T>> predicate) {
         Stream<T> entityStream = repository.findAll().stream();
-        if(page != 0 && size != 0) {
-            entityStream.skip((long) page * size).limit(size);
+        if(predicate != null) {
+             entityStream = entityStream.filter(predicate.get());
         }
-        if(predicate.isPresent()) {
-            entityStream.filter(predicate.get());
+        if(page != 0 && size != 0) {
+             entityStream = entityStream.skip((long) page * size).limit(size);
         }
         return entityStream.map(this::mapToDto).collect(Collectors.toList());
     }

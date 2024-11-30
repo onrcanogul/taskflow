@@ -16,8 +16,8 @@ public class TaskController {
     private TaskService service;
 
     @GetMapping
-    public ResponseEntity<List<TaskDto>> get(@RequestParam int page, @RequestParam int size){
-        return ResponseEntity.ok(service.get(page, size, null));
+    public ResponseEntity<List<TaskDto>> get(@RequestParam(name="page") String page, @RequestParam(name = "size") String size){
+        return ResponseEntity.ok(service.get(Integer.parseInt(page), Integer.parseInt(size), null));
     }
 
     @GetMapping("/{taskId}")
@@ -32,11 +32,11 @@ public class TaskController {
 
     @PutMapping
     public ResponseEntity<TaskDto> update(@RequestBody TaskDto dto) {
-        return ResponseEntity.status(200).body(service.update(dto, dto.getId()));
+        return ResponseEntity.status(200).body(service.update(dto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") UUID id) {
         service.delete(id);
         return ResponseEntity.status(204).build();
     }

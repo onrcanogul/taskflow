@@ -10,6 +10,8 @@ spring:
     password: password
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
   sql:
     init:
       mode: always
