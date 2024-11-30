@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface TaskService extends BaseService<Task, TaskDto> {
     TaskDto create(TaskDto dto);
+    void addTag(UUID taskId, UUID tagId);
     TaskDto update(TaskDto dto);
     void delete(UUID id);
 }

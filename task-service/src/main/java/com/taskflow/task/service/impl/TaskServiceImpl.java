@@ -3,7 +3,9 @@ package com.taskflow.task.service.impl;
 import com.taskflow.base.events.TaskSendNotificationEvent;
 import com.taskflow.base.service.impl.BaseServiceImpl;
 import com.taskflow.task.dto.TaskDto;
+import com.taskflow.task.entity.Tag;
 import com.taskflow.task.entity.Task;
+import com.taskflow.task.repository.TagRepository;
 import com.taskflow.task.repository.TaskRepository;
 import com.taskflow.task.service.TaskService;
 import org.springframework.cloud.stream.function.StreamBridge;
@@ -17,10 +19,12 @@ import java.util.UUID;
 public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements TaskService {
     private TaskRepository repository;
     private final StreamBridge streamBridge;
-    public TaskServiceImpl(TaskRepository repository, StreamBridge streamBridge) {
+    private TagRepository tagRepository;
+    public TaskServiceImpl(TaskRepository repository, StreamBridge streamBridge, TagRepository tagRepository) {
         super(repository);
         this.repository = repository;
         this.streamBridge = streamBridge;
+        this.tagRepository = tagRepository;
     }
 
     public TaskDto create(TaskDto dto) {
@@ -28,6 +32,13 @@ public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements T
         TaskDto newTask = mapToDto(repository.save(task));
         sendCommunication(newTask, createMessage(newTask));
         return newTask;
+    }
+
+    public void addTag(UUID taskId, UUID tagId) {
+        Task task = repository.findById(taskId).orElseThrow(NullPointerException::new);
+        Tag tag = tagRepository.findById(tagId).orElseThrow(NullPointerException::new);
+        task.getTags().add(tag);
+        repository.save(task);
     }
 
     public TaskDto update(TaskDto dto) {

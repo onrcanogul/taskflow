@@ -20,7 +20,7 @@ public class TagController {
         return ResponseEntity.ok(service.get(page, size, null));
     }
 
-    @GetMapping("/{tagId}")
+    @GetMapping("/{id}")
     public ResponseEntity<TagDto> get(@PathVariable UUID id) {
         return ResponseEntity.ok(service.getSingle(e -> e.getId() == id));
     }

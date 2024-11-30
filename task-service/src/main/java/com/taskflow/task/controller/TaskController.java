@@ -30,6 +30,12 @@ public class TaskController {
         return ResponseEntity.status(201).body(service.create(dto));
     }
 
+    @PostMapping("/tag")
+    public ResponseEntity<Void> addTag(@RequestBody UUID taskId, @RequestBody UUID tagId) {
+        service.addTag(taskId, tagId);
+        return ResponseEntity.status(204).build();
+    }
+
     @PutMapping
     public ResponseEntity<TaskDto> update(@RequestBody TaskDto dto) {
         return ResponseEntity.status(200).body(service.update(dto));
