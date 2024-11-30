@@ -8,7 +8,7 @@ import lombok.*;
 @Getter @Setter @ToString
 @NoArgsConstructor @AllArgsConstructor
 public class Notification extends BaseEntity {
-    private String to;
+    private String sendTo;
     private String subject;
     private String content;
 }

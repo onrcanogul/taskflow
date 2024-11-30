@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS notifications (
     created_by VARCHAR(255),
     updated_date TIMESTAMP,
     updated_by VARCHAR(255),
-    to VARCHAR(255) NOT NULL,
+    sendTo VARCHAR(255) NOT NULL,
     subject VARCHAR(255) NOT NULL,
     content TEXT NOT NULL
  );
