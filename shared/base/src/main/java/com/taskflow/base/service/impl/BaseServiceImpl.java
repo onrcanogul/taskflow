@@ -2,6 +2,7 @@ package com.taskflow.base.service.impl;
 
 import com.taskflow.base.dto.BaseDto;
 import com.taskflow.base.entity.BaseEntity;
+import com.taskflow.base.exceptions.NotFoundException;
 import com.taskflow.base.repository.BaseRepository;
 import com.taskflow.base.service.BaseService;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> i
 
     public D getSingle(Predicate<T> predicate) {
         T entity = repository.findAll().stream().filter(predicate)
-                .findFirst().orElseThrow(RuntimeException::new);
+                .findFirst().orElseThrow(() -> new NotFoundException("Not found"));
         return mapToDto(entity);
     }
 
@@ -44,14 +45,14 @@ public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> i
     }
 
     public D update(D dto, UUID id) {
-        T entity = repository.findById(id).orElseThrow(RuntimeException::new);
+        T entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Not found"));
         updateEntity(dto, entity);
         repository.save(entity);
         return dto;
     }
 
     public void delete(UUID id) {
-        T entity = repository.findById(id).orElseThrow(RuntimeException::new);
+        T entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Not found"));
         repository.delete(entity);
     }
 

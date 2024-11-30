@@ -4,6 +4,7 @@ import com.taskflow.base.enums.TaskStatus;
 import com.taskflow.base.events.TaskCreateReportEvent;
 import com.taskflow.base.events.TaskSendNotificationEvent;
 import com.taskflow.base.events.base.IEvent;
+import com.taskflow.base.exceptions.NotFoundException;
 import com.taskflow.base.service.impl.BaseServiceImpl;
 import com.taskflow.task.dto.TaskDto;
 import com.taskflow.task.entity.Tag;
@@ -44,14 +45,14 @@ public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements T
     }
 
     public void addTag(UUID taskId, UUID tagId) {
-        Task task = repository.findById(taskId).orElseThrow(NullPointerException::new);
-        Tag tag = tagRepository.findById(tagId).orElseThrow(NullPointerException::new);
+        Task task = repository.findById(taskId).orElseThrow(() -> new NotFoundException("Task not found"));
+        Tag tag = tagRepository.findById(tagId).orElseThrow(() -> new NotFoundException("Tag not found"));
         task.getTags().add(tag);
         repository.save(task);
     }
 
     public TaskDto update(TaskDto dto) {
-        Task task = repository.findById(dto.getId()).orElseThrow(NullPointerException::new);
+        Task task = repository.findById(dto.getId()).orElseThrow(() -> new NotFoundException("Task not found"));
         updateEntity(dto, task);
         TaskDto newTask = mapToDto(repository.save(task));
         sendCommunication(new TaskSendNotificationEvent(dto.getUserId(), dto.getTitle(), dto.getTargetDate(), updateMessage(newTask)),"taskSendNotification-out-0");
@@ -59,7 +60,7 @@ public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements T
     }
 
     public void delete(UUID id) {
-        Task task = repository.findById(id).orElseThrow(NullPointerException::new);
+        Task task = repository.findById(id).orElseThrow(() -> new NotFoundException("Task not found"));
         repository.delete(task);
         TaskDto dto = mapToDto(task);
         sendCommunication(new TaskSendNotificationEvent(dto.getUserId(), dto.getTitle(), dto.getTargetDate(), deleteMessage(dto)),"taskSendNotification-out-0");
