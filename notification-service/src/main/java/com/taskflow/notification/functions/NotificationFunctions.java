@@ -24,17 +24,8 @@ public class NotificationFunctions {
     @Bean
     public Consumer<TaskSendNotificationEvent> sendEmail() {
         return event -> {
-            try {
-                logger.debug("Received TaskSendNotificationEvent: {}", event);
                 UserDto user = userClient.getById(event.getUserId()).getBody();
                 emailService.send(user.getEmail(), event.getTitle(), event.getMessage());
-                logger.debug("Email sent successfully to {}", user.getEmail());
-            } catch (Exception e) {
-                logger.error("Error while processing TaskSendNotificationEvent", e);
-            }
         };
     }
-
-
-
 }

@@ -1,17 +1,37 @@
 package com.taskflow.report.service.impl;
 
+import com.taskflow.base.enums.TaskStatus;
 import com.taskflow.report.dto.ReportDto;
 import com.taskflow.report.entity.Report;
+import com.taskflow.report.repository.ReportRepository;
 import com.taskflow.report.service.ReportService;
-import com.taskflow.base.repository.BaseRepository;
 import com.taskflow.base.service.impl.BaseServiceImpl;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReportServiceImpl extends BaseServiceImpl<Report, ReportDto> implements ReportService {
-    public ReportServiceImpl(BaseRepository<Report> repository, StreamBridge streamBridge) {
+    private final ReportRepository repository;
+    public ReportServiceImpl(ReportRepository repository, StreamBridge streamBridge) {
         super(repository, streamBridge);
+        this.repository = repository;
+    }
+
+    @Override
+    public void handleCreatedTask(Report report) {
+        report.setCompletedTasks(report.getCompletedTasks() + 1);
+        report.setActiveTasks(report.getActiveTasks() - 1);
+        repository.save(report);
+    }
+
+    @Override
+    public void handleChangeTaskStatus(Report report, TaskStatus status, int points) {
+        if(status == TaskStatus.Done) {
+            report.setCompletedTasks(report.getCompletedTasks() + 1);
+            report.setActiveTasks(report.getActiveTasks() - 1);
+            report.setPoints(report.getPoints() + points);
+            repository.save(report);
+        }
     }
 
     @Override
@@ -55,4 +75,6 @@ public class ReportServiceImpl extends BaseServiceImpl<Report, ReportDto> implem
 
         return entity;
     }
+
+
 }

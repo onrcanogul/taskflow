@@ -1,12 +1,10 @@
 package com.taskflow.report.functions;
 
-
-import com.taskflow.base.enums.TaskStatus;
 import com.taskflow.base.events.TaskCreateReportEvent;
 import com.taskflow.base.events.TaskStatusEvent;
 import com.taskflow.base.events.UserCreatedEvent;
+import com.taskflow.base.exceptions.NotFoundException;
 import com.taskflow.report.dto.ReportDto;
-import com.taskflow.report.entity.Report;
 import com.taskflow.report.repository.ReportRepository;
 import com.taskflow.report.service.ReportService;
 import com.taskflow.report.service.client.TaskFeignClient;
@@ -40,24 +38,18 @@ public class ReportFunctions {
     @Bean
     public Consumer<TaskCreateReportEvent> createTaskConsumer() {
         return event -> {
-            Report report = repository.findByUserId(event.getUserId());
-            report.setCompletedTasks(report.getCompletedTasks() + 1);
-            report.setActiveTasks(report.getActiveTasks() - 1);
-            repository.save(report);
+            service.handleCreatedTask(repository.findByUserId(event.getUserId())
+                    .orElseThrow(() -> new NotFoundException("Report not found")));
         };
     }
-
     @Bean
     public Consumer<TaskStatusEvent> changeTaskStatusConsumer() {
         return event -> {
-            Report report = repository.findByUserId(event.getUserId());
-            if(event.getStatus() == TaskStatus.Done) {
-                report.setCompletedTasks(report.getCompletedTasks() + 1);
-                report.setActiveTasks(report.getActiveTasks() - 1);
-                report.setPoints(report.getPoints() + event.getPoints());
-                repository.save(report);
-            }
-        };
-    }
-
+            service.handleChangeTaskStatus(repository.findByUserId(event.getUserId())
+                    .orElseThrow(() -> new NotFoundException("Report not found")),event.getStatus(), event.getPoints());
+            };
+        }
 }
+
+
+
