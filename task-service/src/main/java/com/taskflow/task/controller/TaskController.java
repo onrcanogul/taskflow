@@ -1,5 +1,6 @@
 package com.taskflow.task.controller;
 
+import com.taskflow.base.enums.TaskStatus;
 import com.taskflow.task.dto.TaskDto;
 import com.taskflow.task.service.TaskService;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,12 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<TaskDto> create(@RequestBody TaskDto dto) {
         return ResponseEntity.status(201).body(service.create(dto));
+    }
+
+    @PostMapping("/status")
+    public ResponseEntity<Void> setStatus(@RequestBody UUID id, @RequestBody TaskStatus status){
+        service.setStatus(id, status);
+        return ResponseEntity.status(204).build();
     }
 
     @PostMapping("/tag")

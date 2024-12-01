@@ -161,6 +161,7 @@ services:
       retries: 3
     networks:
       - task-flow-network
+
   eureka-service:
     image: "taskflow/eureka-service"
     container_name: eureka-service
@@ -229,7 +230,7 @@ services:
     environment:
       SPRING_APPLICATION_NAME: "user-service"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8070/eureka/
-      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      SPRING_CONFIG_IMPORT: configserver:http://config-service:8071/
       SPRING_DATASOURCE_URL: "jdbc:postgresql://userDb:5433/user-db"
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: password
@@ -263,6 +264,7 @@ services:
       SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS: "kafka:9092"
     networks:
       - task-flow-network
+
   notification-service:
     image: "taskflow/notification"
     container_name: notification-service
@@ -283,7 +285,7 @@ services:
       SPRING_APPLICATION_NAME: "notification-service"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8070/eureka/
       SPRING_CONFIG_IMPORT: configserver:http://config-service:8071/
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://notificationDb:5435/notification-db"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://notificationDb:5432/notification-db"
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS: "kafka:9092"

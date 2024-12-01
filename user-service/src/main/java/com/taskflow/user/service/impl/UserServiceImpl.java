@@ -1,10 +1,13 @@
 package com.taskflow.user.service.impl;
 
+import com.taskflow.base.events.UserCreatedEvent;
+import com.taskflow.base.events.base.IEvent;
 import com.taskflow.base.service.impl.BaseServiceImpl;
 import com.taskflow.user.dto.UserDto;
 import com.taskflow.user.entity.User;
 import com.taskflow.user.repository.UserRepository;
 import com.taskflow.user.service.UserService;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,8 +16,8 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User, UserDto> implements UserService {
     private UserRepository repository;
-    public UserServiceImpl(UserRepository repository) {
-        super(repository);
+    public UserServiceImpl(UserRepository repository, StreamBridge streamBridge) {
+        super(repository, streamBridge);
         this.repository = repository;
     }
     public UserDto getById(UUID id) {
@@ -33,13 +36,15 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserDto> implements U
     }
 
     public UserDto findOrCreate(String userId, String username, String email) {
-        return mapToDto(repository.findById(UUID.fromString(userId)).orElseGet(() -> {
+         UserDto dto = mapToDto(repository.findById(UUID.fromString(userId)).orElseGet(() -> {
             User user = new User();
             user.setEmail(email);
             user.setUsername(username);
             user.setId(UUID.fromString(userId));
             return repository.save(user);
         }));
+         sendCommunication(new UserCreatedEvent(dto.getId()), "userCreate-out-0");
+         return dto;
     }
 
     @Override

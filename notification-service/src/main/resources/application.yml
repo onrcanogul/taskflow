@@ -24,6 +24,8 @@ spring:
     import: "optional:configserver:http://localhost:8071/"
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
   sql:
     init:
       mode: always
@@ -47,11 +49,8 @@ spring:
     port: 5672
     username: guest
     password: guest
-
   kafka:
     bootstrap-servers: localhost:9092
-
-
 feign:
   client:
     config:
@@ -96,4 +95,8 @@ resilience4j.ratelimiter:
       timeoutDuration: 1000
       limitRefreshPeriod: 5000
       limitForPeriod: 1
+logging:
+  level:
+    root: debug
+    com.taskflow.notification: debug
 

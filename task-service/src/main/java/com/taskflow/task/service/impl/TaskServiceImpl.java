@@ -3,7 +3,7 @@ package com.taskflow.task.service.impl;
 import com.taskflow.base.enums.TaskStatus;
 import com.taskflow.base.events.TaskCreateReportEvent;
 import com.taskflow.base.events.TaskSendNotificationEvent;
-import com.taskflow.base.events.base.IEvent;
+import com.taskflow.base.events.TaskStatusEvent;
 import com.taskflow.base.exceptions.NotFoundException;
 import com.taskflow.base.service.impl.BaseServiceImpl;
 import com.taskflow.task.dto.TaskDto;
@@ -23,12 +23,10 @@ import java.util.UUID;
 @Service
 public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements TaskService {
     private final TaskRepository repository;
-    private final StreamBridge streamBridge;
     private final TagRepository tagRepository;
     public TaskServiceImpl(TaskRepository repository, StreamBridge streamBridge, TagRepository tagRepository) {
-        super(repository);
+        super(repository, streamBridge);
         this.repository = repository;
-        this.streamBridge = streamBridge;
         this.tagRepository = tagRepository;
     }
 
@@ -51,6 +49,12 @@ public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements T
         repository.save(task);
     }
 
+    public void setStatus(UUID id, TaskStatus status) {
+        Task task = repository.findById(id).orElseThrow(() -> new NotFoundException("Task not found"));
+        task.setStatus(status);
+        sendCommunication(new TaskStatusEvent(task.getUserId(), task.getStatus(), task.getPoints()), "taskChangeStatus-out-0");
+    }
+
     public TaskDto update(TaskDto dto) {
         Task task = repository.findById(dto.getId()).orElseThrow(() -> new NotFoundException("Task not found"));
         updateEntity(dto, task);
@@ -66,10 +70,6 @@ public class TaskServiceImpl extends BaseServiceImpl<Task, TaskDto> implements T
         sendCommunication(new TaskSendNotificationEvent(dto.getUserId(), dto.getTitle(), dto.getTargetDate(), deleteMessage(dto)),"taskSendNotification-out-0");
     }
 
-
-    private void sendCommunication(IEvent event, String bindName) {
-        streamBridge.send(bindName, event);
-    }
 
     private String createMessage(TaskDto task) {
         return "Task - " + task.getTitle() + " - " + "has been created, Target date: " + task.getTargetDate() +".";

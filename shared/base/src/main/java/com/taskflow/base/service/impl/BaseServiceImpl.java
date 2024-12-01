@@ -2,9 +2,11 @@ package com.taskflow.base.service.impl;
 
 import com.taskflow.base.dto.BaseDto;
 import com.taskflow.base.entity.BaseEntity;
+import com.taskflow.base.events.base.IEvent;
 import com.taskflow.base.exceptions.NotFoundException;
 import com.taskflow.base.repository.BaseRepository;
 import com.taskflow.base.service.BaseService;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +19,10 @@ import java.util.stream.Stream;
 @Service
 public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> implements BaseService<T, D> {
     private final BaseRepository<T> repository;
-    public BaseServiceImpl(BaseRepository<T> repository) {
+    private final StreamBridge streamBridge;
+    public BaseServiceImpl(BaseRepository<T> repository, StreamBridge streamBridge) {
         this.repository = repository;
+        this.streamBridge = streamBridge;
     }
 
     public List<D> get(int page , int size, Optional<Predicate<? super T>> predicate) {
@@ -36,6 +40,10 @@ public abstract class BaseServiceImpl<T extends BaseEntity, D extends BaseDto> i
         T entity = repository.findAll().stream().filter(predicate)
                 .findFirst().orElseThrow(() -> new NotFoundException("Not found"));
         return mapToDto(entity);
+    }
+
+    protected void sendCommunication(IEvent event, String bindName) {
+        streamBridge.send(bindName, event);
     }
 
     public D create(D dto) {
