@@ -11,10 +11,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TagServiceImpl extends BaseServiceImpl<Tag, TagDto> implements TagService {
-    private TagRepository repository;
     public TagServiceImpl(TagRepository repository, StreamBridge streamBridge) {
-        super(repository);
-        this.repository = repository;
+        super(repository, streamBridge);
     }
     @Override
     protected void updateEntity(TagDto dto, Tag entity) {

@@ -12,7 +12,6 @@ public class UserCreatedEvent implements IEvent {
     public UUID getUserId() {
         return userId;
     }
-
     public void setUserId(UUID userId) {
         this.userId = userId;
     }

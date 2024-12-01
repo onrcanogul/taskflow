@@ -5,12 +5,13 @@ import com.taskflow.report.entity.Report;
 import com.taskflow.report.service.ReportService;
 import com.taskflow.base.repository.BaseRepository;
 import com.taskflow.base.service.impl.BaseServiceImpl;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReportServiceImpl extends BaseServiceImpl<Report, ReportDto> implements ReportService {
-    public ReportServiceImpl(BaseRepository<Report> repository) {
-        super(repository);
+    public ReportServiceImpl(BaseRepository<Report> repository, StreamBridge streamBridge) {
+        super(repository, streamBridge);
     }
 
     @Override
