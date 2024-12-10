@@ -24,6 +24,8 @@ public class NotificationFunctions {
     @Bean
     public Consumer<TaskSendNotificationEvent> sendEmail() {
         return event -> {
+                logger.debug("Email send triggered");
+                logger.info("Email send triggered");
                 UserDto user = userClient.getById(event.getUserId()).getBody();
                 emailService.send(user.getEmail(), event.getTitle(), event.getMessage());
         };

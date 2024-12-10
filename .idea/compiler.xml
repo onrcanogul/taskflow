@@ -13,6 +13,7 @@
         <module name="report" />
         <module name="api-gateway" />
         <module name="task-service" />
+        <module name="configservice" />
         <module name="user" />
         <module name="base" />
       </profile>

@@ -22,18 +22,11 @@ spring:
       bindings:
         taskSendNotification-out-0:
           destination: task-notification-topic
-          group: ${spring.application.name}
         taskCreateReport-out-0:
           destination: task-report-topic
-          group: ${spring.application.name}
       kafka:
         binder:
           brokers:
             - localhost:9092
-  rabbit:
-    host: rabbitmq
-    port: 5672
-    username: guest
-    password: guest
   kafka:
     bootstrap-servers: localhost:9092

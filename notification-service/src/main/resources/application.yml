@@ -33,13 +33,13 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
-    function:
-      definition: sendEmail
     stream:
+      function:
+        definition: sendEmail
       bindings:
-        taskSendNotification-in-0:
+        sendEmail-in-0:
           destination: task-notification-topic
-          group: ${spring.application.name}
+          group: notification-service-group
       kafka:
         binder:
           brokers:
